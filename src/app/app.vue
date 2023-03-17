@@ -1,3 +1,20 @@
 <template>
-    <h3>NINGHAO</h3>
+    <h3>{{ name }}</h3>
 </template>
+
+<script lang="ts">
+export default {
+    data() {
+        return {
+            name: 'NINGHAO',
+        };
+    },
+    created() {
+        console.log('App 组件已创建！');
+
+        setTimeout(() => {
+            this.name = '宁皓网 🚀';
+        }, 3000);
+    },
+};
+</script>
