@@ -12,9 +12,15 @@ export default {
     created() {
         console.log('App 组件已创建！');
 
-        setTimeout(() => {
-            this.name = '宁皓网 🚀';
-        }, 3000);
+        this.setName();
+
+    },
+    methods: {
+        setName() {
+            setTimeout(() => {
+                this.name = '宁皓网 🚀';
+            }, 3000);
+        }
     },
 };
 </script>
