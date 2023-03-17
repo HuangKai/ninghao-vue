@@ -1,8 +1,9 @@
 <template>
     <h3>{{ name }}</h3>
+    {{ processStatus }}
 </template>
 
-<script lang="ts">
+<script>
 export default {
     data() {
         return {
@@ -20,6 +21,11 @@ export default {
             setTimeout(() => {
                 this.name = '宁皓网 🚀';
             }, 3000);
+        }
+    },
+    computed: {
+        processStatus() {
+            return this.name === 'NINGHAO' ? "初始化..." : "成功设置了数据！";
         }
     },
 };
