@@ -1,9 +1,6 @@
 <template>
   <h3>{{ name }}</h3>
-  <input type="text" v-model="content" />
-  <!-- 等同于上面的写法
-  <input type="text" :value="content" @input="content = $event.target.value" /> 
-  -->
+  <input type="text" v-model.lazy="content" />
   <span> → Content: {{ content }}</span>
 </template>
 
