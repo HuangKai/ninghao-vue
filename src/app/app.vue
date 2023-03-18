@@ -1,10 +1,8 @@
 <template>
   <h3>{{ name }}</h3>
-  <AppButton
-    text="确定"
-    @init="onInitAppButton"
-    @tap="onTapAppButton"
-  ></AppButton>
+  <AppButton @init="onInitAppButton" @tap="onTapAppButton">
+    提交
+  </AppButton>
 </template>
 
 <script>
