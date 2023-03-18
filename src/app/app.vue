@@ -6,6 +6,9 @@
     <div v-for="(post, index) in postList" :key="post.id">
         {{ index + 1 }} {{ post.content }} - <small>{{ post.author }}</small>
     </div>
+    <hr>
+    <div v-if="visible">隐藏的内容！</div>
+    <button @click="visible = !visible">{{ visible ? '隐藏' : '显示' }}</button>
 </template>
 
 <script>
@@ -28,6 +31,7 @@ export default {
                     author: '白居易'
                 },
             ],
+            visible: true,
         };
     },
     created() {
