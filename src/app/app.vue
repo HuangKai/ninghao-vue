@@ -28,5 +28,10 @@ export default {
             return this.name === 'NINGHAO' ? "初始化..." : "成功设置了数据！";
         }
     },
+    watch: {
+        name(newName, oldName) {
+            console.log(`name 发生了变化: ${oldName} -> ${newName}`);
+        }
+    },
 };
 </script>
