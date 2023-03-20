@@ -1,14 +1,22 @@
 <template>
-  <div>用户登录</div>
-  <input type="text" ref="username" />
-  <input type="text" />
+  <div>用户登录 {{ username }}</div>
+  <AppInput v-model="username"></AppInput>
+  <!-- <AppInput
+    :model-value="username"
+    @update:model-value="username = $event"
+  ></AppInput> -->
 </template>
 
 <script>
+import AppInput from './app-input.vue';
 export default {
-  mounted() {
-    console.log(this.$refs.username);
-    this.$refs.username.focus();
+  data() {
+    return {
+      username: '',
+    };
+  },
+  components: {
+    AppInput,
   },
 };
 </script>
