@@ -20,6 +20,21 @@ const routes: Array<RouteRecordRaw> = [
     name: 'about',
     component: About,
   },
+  {
+    path: '/about-us',
+
+    // 使用路由的地址
+    // redirect: '/about',
+
+    // 使用路由的名字
+    // redirect: { name: 'about' },
+
+    // 使用方法来判断
+    redirect: to => {
+      console.log(to);
+      return '/about';
+    }
+  },
 ];
 
 /**
