@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import postRoutes from '../post/index/post.routes';
 export default {
   data() {
     return {
