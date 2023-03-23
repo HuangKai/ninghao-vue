@@ -15,11 +15,17 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     component: Index,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/about',
     name: 'about',
     component: About,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/about-us',
@@ -51,9 +57,9 @@ const router = createRouter({
  * 导航守卫
  */
 router.beforeEach((to, from, next) => {
-  console.log('👮🏻');
-  console.log('to: ', to);
-  console.log('from: ', from);
+  // console.log('👮🏻');
+  // console.log('to: ', to);
+  // console.log('from: ', from);
 
   // 控制路由
   // if (to.name == 'postIndex') {
@@ -61,6 +67,12 @@ router.beforeEach((to, from, next) => {
   // } else {
   //   next();
   // }
+
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+  if (requiresAuth) {
+    console.log('👮🏻');
+  }
 
   next();
 });
