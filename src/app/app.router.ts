@@ -48,6 +48,24 @@ const router = createRouter({
 });
 
 /**
+ * 导航守卫
+ */
+router.beforeEach((to, from, next) => {
+  console.log('👮🏻');
+  console.log('to: ', to);
+  console.log('from: ', from);
+
+  // 控制路由
+  // if (to.name == 'postIndex') {
+  //   next('/');
+  // } else {
+  //   next();
+  // }
+
+  next();
+});
+
+/**
  * 导出路由
  */
 export default router;
