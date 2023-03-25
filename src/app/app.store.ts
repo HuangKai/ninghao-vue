@@ -12,6 +12,13 @@ const store = createStore({
             return `🎈 ${state.name}`;
         },
     },
+
+    //修改 state 的数据
+    mutations: {
+        setName(state, data) {
+            state.name = data;
+        },
+    },
 });
 
 /**
