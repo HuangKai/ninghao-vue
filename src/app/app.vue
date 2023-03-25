@@ -9,6 +9,9 @@ export default {
   data() {
     return {};
   },
+  created() {
+    this.$store.dispatch('getName');
+  },
   computed: {
     // ...mapState(['name']),
 

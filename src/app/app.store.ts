@@ -5,7 +5,7 @@ import { createStore } from 'vuex';
  */
 const store = createStore({
     state: {
-        name: '宁皓网',
+        name: '',
     },
     getters: {
         name(state) {
@@ -17,6 +17,14 @@ const store = createStore({
     mutations: {
         setName(state, data) {
             state.name = data;
+        },
+    },
+
+    // 定义 action
+    actions: {
+        getName(context) {
+            const name = '宁皓网';
+            context.commit('setName', name);
         },
     },
 });
