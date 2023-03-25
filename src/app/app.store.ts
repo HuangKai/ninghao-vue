@@ -7,6 +7,11 @@ const store = createStore({
     state: {
         name: '宁皓网',
     },
+    getters: {
+        name(state) {
+            return `🎈 ${state.name}`;
+        },
+    },
 });
 
 /**
