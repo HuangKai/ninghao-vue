@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { mapGetters, mapMutations, mapState } from 'vuex';
 
 export default {
   data() {
@@ -21,11 +21,17 @@ export default {
     ...mapGetters(['name']),
   },
   methods: {
+    /**
+     * 设置方法用数组参数，修改数组名称用对象参数
+     */
+    ...mapMutations(['setName']),
     onClickName() {
       if (this.$store.state.name === '宁皓网') {
-        this.$store.commit('setName', 'NINGHAO');
+        // this.$store.commit('setName', 'NINGHAO');
+        this.setName('NINGHAO');
       } else {
-        this.$store.commit('setName', '宁皓网');
+        // this.$store.commit('setName', '宁皓网');
+        this.setName('宁皓网');
       }
     },
   },
