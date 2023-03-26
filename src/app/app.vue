@@ -3,14 +3,22 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations, mapState } from 'vuex';
+import { mapActions, mapGetters, mapMutations, mapState } from 'vuex';
 
 export default {
   data() {
     return {};
   },
   created() {
-    this.$store.dispatch('getName');
+    /**
+     * 使用 dispatch 方法调用
+     */
+    // this.$store.dispatch('getName');
+
+    /**
+     * 使用 mapActions 导入的 getName 方法
+     */
+    this.getName();
   },
   computed: {
     // ...mapState(['name']),
@@ -25,9 +33,16 @@ export default {
   },
   methods: {
     /**
-     * 设置方法用数组参数，修改数组名称用对象参数
+     * 使用数组参数，设置方法用数组参数，修改数组名称用对象参数
      */
     ...mapMutations(['setName']),
+
+    /**
+     * 使用对象参数
+     */
+    ...mapActions({
+      getName: 'getName',
+    }),
     onClickName() {
       if (this.$store.state.name === '宁皓网') {
         // this.$store.commit('setName', 'NINGHAO');
