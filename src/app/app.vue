@@ -3,6 +3,7 @@
     {{ name }}
     <span v-if="loading">加载中... </span>
   </h3>
+  {{ user.currentUser }}
 </template>
 
 <script>
@@ -22,6 +23,7 @@ export default {
      * 使用 mapActions 导入的 getName 方法
      */
     this.getName();
+    this.getCurrentUser();
   },
   computed: {
     // ...mapState(['name']),
@@ -33,7 +35,7 @@ export default {
 
     // 使用 Getter 获取器
     ...mapGetters(['name']),
-    ...mapState(['loading']),
+    ...mapState(['loading', 'user']),
   },
   methods: {
     /**
@@ -46,6 +48,7 @@ export default {
      */
     ...mapActions({
       getName: 'getName',
+      getCurrentUser: 'getCurrentUser',
     }),
     onClickName() {
       if (this.$store.state.name === '宁皓网') {
