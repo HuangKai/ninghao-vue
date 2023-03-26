@@ -22,9 +22,22 @@ const store = createStore({
 
     // 定义 action
     actions: {
-        getName(context) {
+        /**
+         * 常规调用方式
+         */
+        // getName(context) {
+        //     const name = '宁皓网';
+        //     context.commit('setName', name);
+        //     // 打印 context 对象
+        //     console.log(context);
+        // },
+
+        /**
+         * 结构参数调用方式
+         */
+        getName({ commit }) {
             const name = '宁皓网';
-            context.commit('setName', name);
+            commit('setName', name);
         },
     },
 });
