@@ -6,9 +6,9 @@
         <div class="card-subtitle">Transition & Animation</div>
       </div>
       <div class="card__content">
-        <transition>
+        <transition name="slide">
           <div v-if="isActive" class="emoji">
-            🌵
+            🌴
           </div>
         </transition>
       </div>
