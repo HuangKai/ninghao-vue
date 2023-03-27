@@ -17,10 +17,10 @@
       </div>
       <div class="card__action">
         <button @click="shuffle" :class="{ active: isActive }">
-          请按这里
+          洗牌
         </button>
         <button @click="pop">
-          请按这里
+          删除
         </button>
       </div>
     </div>
@@ -32,6 +32,7 @@
 
 <script>
 import _ from 'lodash';
+import gsap from 'gsap';
 
 export default {
   data() {
@@ -39,6 +40,8 @@ export default {
       name: '宁皓网',
       isActive: true,
       emojiList: ['🌲', '🌳', '🌴'],
+      number: 0,
+      tweenedNumber: 0,
     };
   },
 
