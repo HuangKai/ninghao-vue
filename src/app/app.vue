@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 
 export default {
   setup() {
@@ -16,6 +16,11 @@ export default {
     // 生命周期
     onMounted(() => {
       console.log('mounted');
+    });
+
+    // 监视数据
+    watch(name, (newName, oldName) => {
+      console.log(newName, oldName);
     });
 
     return {
