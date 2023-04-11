@@ -1,9 +1,9 @@
 <template>
-  <h3 @click="changeName">{{ name }}</h3>
+  <h3 @click="changeName">{{ nameEmoji }}</h3>
 </template>
 
 <script>
-import { onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 
 export default {
   setup() {
@@ -23,9 +23,13 @@ export default {
       console.log(newName, oldName);
     });
 
+    // 计算属性
+    const nameEmoji = computed(() => `${name.value} 🌋`);
+
     return {
       name,
       changeName,
+      nameEmoji,
     };
   },
 };
