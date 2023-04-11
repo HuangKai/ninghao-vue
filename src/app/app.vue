@@ -13,7 +13,7 @@ export default {
       name.value = 'NINGHAO';
     };
 
-    // 声明周期
+    // 生命周期
     onMounted(() => {
       console.log('mounted');
     });
