@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { axios } from '@/app/app.service';
 
 export default {
   data() {
@@ -22,24 +22,9 @@ export default {
 
   async created() {
     try {
-      /**
-       * 请求配置方式一
-       */
-      // const response = await axios.get('/posts', {
-      //   baseURL: 'http://localhost:3000',
-      // });
+      const response = await axios.get('/posts');
+      console.log(axios.defaults);
 
-      /**
-       * 请求配置方式二
-       */
-      const response = await axios({
-        method: 'get',
-        url: '/posts',
-        baseURL: 'http://localhost:3000',
-        headers: {
-          'X-Custom': 'hello ~',
-        },
-      });
       this.posts = response.data;
     } catch (error) {
       this.errorMessage = error.message;
