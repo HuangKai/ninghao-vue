@@ -1,7 +1,6 @@
 <template>
   <h3>{{ name }}</h3>
   <div>{{ errorMessage }}</div>
-  <div>{{ errorResponse.data }}</div>
   <div v-for="post in posts" :key="post.id">
     {{ post.title }} -
     <small>{{ post.user.name }}</small>
@@ -21,20 +20,22 @@ export default {
     };
   },
 
-  created() {
-    axios
-      .get('http://localhost:3000/posts1')
-      .then(response => {
-        console.log(response);
-        this.posts = response.data;
-      })
-      .catch(error => {
-        console.log(error.message);
-        console.log(error.response);
+  async created() {
+    try {
+      /**
+       * await 方式一
+       */
+      // const response = axios.get('http://localhost:3000/posts1');
+      // this.posts = (await response).data;
 
-        this.errorMessage = error.message;
-        this.errorResponse = error.response;
-      });
+      /**
+       * await 方式二
+       */
+      const response = await axios.get('http://localhost:3000/posts');
+      this.posts = response.data;
+    } catch (error) {
+      this.errorMessage = error.message;
+    }
   },
 };
 </script>
