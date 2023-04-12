@@ -23,15 +23,23 @@ export default {
   async created() {
     try {
       /**
-       * await 方式一
+       * 请求配置方式一
        */
-      // const response = axios.get('http://localhost:3000/posts1');
-      // this.posts = (await response).data;
+      // const response = await axios.get('/posts', {
+      //   baseURL: 'http://localhost:3000',
+      // });
 
       /**
-       * await 方式二
+       * 请求配置方式二
        */
-      const response = await axios.get('http://localhost:3000/posts');
+      const response = await axios({
+        method: 'get',
+        url: '/posts',
+        baseURL: 'http://localhost:3000',
+        headers: {
+          'X-Custom': 'hello ~',
+        },
+      });
       this.posts = response.data;
     } catch (error) {
       this.errorMessage = error.message;
