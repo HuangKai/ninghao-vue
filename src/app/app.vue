@@ -7,6 +7,10 @@
     @login-error="onLoginError"
   ></UserLogin>
 
+  <div v-if="currentUser">
+    <div>{{ currentUser.name }}</div>
+  </div>
+
   <input
     v-if="isLoggedIn"
     type="text"
@@ -44,6 +48,7 @@ export default {
       errorResponse: '',
       token: '',
       title: '',
+      currentUser: null,
     };
   },
 
@@ -58,14 +63,29 @@ export default {
   },
 
   methods: {
-    onLoginSuccess(data) {
-      this.token = data.token;
+    // 获取当前用户数据
+    async getCurrentUser(userId) {
+      try {
+        const response = await apiHttpClient.get(`/users/${userId}`);
+
+        this.currentUser = response.data;
+      } catch (error) {
+        this.errorMessage = error.data.message;
+      }
     },
 
+    // 登录成功
+    onLoginSuccess(data) {
+      this.token = data.token;
+      this.getCurrentUser(data.id);
+    },
+
+    // 登录失败
     onLoginError(error) {
       this.errorMessage = error.data.message;
     },
 
+    // 删除内容
     async deletePost(postId) {
       try {
         await apiHttpClient.delete(`/posts/${postId}`, {
@@ -79,6 +99,8 @@ export default {
         this.errorMessage = error.message;
       }
     },
+
+    // 更新内容
     async updatePost(event, postId) {
       console.log(event.target.value);
       console.log(postId);
@@ -101,8 +123,9 @@ export default {
         this.errorMessage = error.message;
       }
     },
+
+    // 获取内容列表
     async getPost() {
-      // 获取内容列表
       try {
         const response = await apiHttpClient.get('/posts');
 
