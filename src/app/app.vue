@@ -25,6 +25,7 @@ export default {
   components: {
     UserLogin,
   },
+
   data() {
     return {
       name: '宁皓网',
