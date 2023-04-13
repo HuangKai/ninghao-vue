@@ -42,7 +42,7 @@ const apiHttpClient = axios.create({
  */
 apiHttpClient.interceptors.request.use(
   config => {
-    console.log('apiHttpClient 请求拦截器', config);
+    // console.log('apiHttpClient 请求拦截器', config);
 
     return config;
   },
@@ -56,7 +56,7 @@ apiHttpClient.interceptors.request.use(
  */
 apiHttpClient.interceptors.response.use(
   response => {
-    console.log('apiHttpClient 响应拦截器', response);
+    // console.log('apiHttpClient 响应拦截器', response);
 
     return response;
   },

@@ -17,14 +17,34 @@ export default {
       posts: [],
       errorMessage: '',
       errorResponse: '',
+      user: {
+        name: '王皓',
+        password: '123123',
+      },
+      token: '',
     };
   },
 
   async created() {
+    /**
+     * 获取内容列表
+     */
     try {
       const response = await apiHttpClient.get('/posts');
 
       this.posts = response.data;
+    } catch (error) {
+      this.errorMessage = error.message;
+    }
+
+    /**
+     * 用户登录
+     */
+    try {
+      const response = await apiHttpClient.post('/login', this.user);
+      this.token = response.token;
+
+      console.log(response.data);
     } catch (error) {
       this.errorMessage = error.message;
     }
