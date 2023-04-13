@@ -3,6 +3,11 @@
   <input type="text" v-model="title" @keyup.enter="createPost" />
   <div>{{ errorMessage }}</div>
   <div v-for="post in posts" :key="post.id">
+    <input
+      type="text"
+      :value="post.title"
+      @keyup.enter="updatePost($event, post.id)"
+    />
     {{ post.title }} -
     <small>{{ post.user.name }}</small>
   </div>
@@ -42,6 +47,28 @@ export default {
   },
 
   methods: {
+    async updatePost(event, postId) {
+      console.log(event.target.value);
+      console.log(postId);
+
+      try {
+        await apiHttpClient.patch(
+          `/posts/${postId}`,
+          {
+            title: event.target.value,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${this.token}`,
+            },
+          },
+        );
+
+        this.getPost();
+      } catch (error) {
+        this.errorMessage = error.message;
+      }
+    },
     async getPost() {
       // 获取内容列表
       try {
