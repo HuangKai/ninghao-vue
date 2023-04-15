@@ -1,36 +1,30 @@
 <template>
   <h3>{{ name }}</h3>
-
   <UserLogin
     v-if="!isLoggedIn"
     @login-success="onLoginSuccess"
     @login-error="onLoginError"
-  ></UserLogin>
-
+  />
   <div v-if="currentUser">
     <div>{{ currentUser.name }}</div>
     <button @click="logout">退出</button>
   </div>
-
   <input
     v-if="isLoggedIn"
     type="text"
     v-model="title"
     @keyup.enter="createPost"
-    placeholder="请输入内容标题"
+    placeholder="输入内容标题"
   />
-
   <input
     type="file"
+    ref="file"
     @change="onChangeFile"
     accept="image/png, image/jpeg, image/jpg"
-    multiple
   />
-
   <div v-if="imagePreviewUrl">
     <img class="image-preview" :src="imagePreviewUrl" />
   </div>
-
   <div>{{ errorMessage }}</div>
   <div v-for="post in posts" :key="post.id">
     <input
@@ -49,10 +43,6 @@ import { apiHttpClient } from '@/app/app.service';
 import UserLogin from '@/user/components/user-login.vue';
 
 export default {
-  components: {
-    UserLogin,
-  },
-
   data() {
     return {
       name: '宁皓网',
@@ -74,7 +64,7 @@ export default {
   },
 
   async created() {
-    this.getPost();
+    this.getPosts();
 
     const tid = localStorage.getItem('tid');
     const uid = localStorage.getItem('uid');
@@ -84,6 +74,38 @@ export default {
   },
 
   methods: {
+    // 创建文件对象
+    async createFile(file, postId) {
+      // 创建表单
+      const formData = new FormData();
+
+      // 添加字段
+      formData.append('file', file);
+
+      // 上传文件
+      try {
+        const response = await apiHttpClient.post(
+          `/files?post=${postId}`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${this.token}`,
+            },
+          },
+        );
+
+        // 清理
+        this.file = null;
+        this.imagePreviewUrl = null;
+        this.$refs.file.value = '';
+
+        console.log('createFile', response.data);
+      } catch (error) {
+        this.errorMessage = error.message;
+      }
+    },
+
+    // 生成预览图
     createImagePreview(file) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -93,6 +115,7 @@ export default {
       };
     },
 
+    // 监听选择的文件
     onChangeFile(event) {
       console.log(event.target.files);
 
@@ -122,7 +145,11 @@ export default {
 
         this.currentUser = response.data;
       } catch (error) {
-        this.errorMessage = error.data.message;
+        /**
+         * 下面这行查看示例代码发现没有中间无须 .data
+         */
+        // this.errorMessage = error.data.message;
+        this.errorMessage = error.message;
       }
     },
 
@@ -149,7 +176,7 @@ export default {
           },
         });
 
-        this.getPost();
+        this.getPosts();
       } catch (error) {
         this.errorMessage = error.message;
       }
@@ -173,14 +200,14 @@ export default {
           },
         );
 
-        this.getPost();
+        this.getPosts();
       } catch (error) {
         this.errorMessage = error.message;
       }
     },
 
     // 获取内容列表
-    async getPost() {
+    async getPosts() {
       try {
         const response = await apiHttpClient.get('/posts');
 
@@ -205,15 +232,22 @@ export default {
           },
         );
 
-        console.log(response.data);
+        console.log('createPost', response.data);
+
+        if (this.file) {
+          this.createFile(this.file, response.data.insertId);
+        }
 
         this.title = '';
 
-        this.getPost();
+        this.getPosts();
       } catch (error) {
         this.errorMessage = error.message;
       }
     },
+  },
+  components: {
+    UserLogin,
   },
 };
 </script>
