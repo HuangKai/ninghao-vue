@@ -5,10 +5,12 @@
     @login-success="onLoginSuccess"
     @login-error="onLoginError"
   />
+
   <div v-if="currentUser">
     <div>{{ currentUser.name }}</div>
     <button @click="logout">退出</button>
   </div>
+
   <input
     v-if="isLoggedIn"
     type="text"
@@ -16,16 +18,24 @@
     @keyup.enter="createPost"
     placeholder="输入内容标题"
   />
+
   <input
     type="file"
     ref="file"
     @change="onChangeFile"
     accept="image/png, image/jpeg, image/jpg"
   />
+
+  <div v-if="imageUploadProgress">
+    <span class="image-upload-progress">{{ imageUploadProgress + '%' }}</span>
+  </div>
+
   <div v-if="imagePreviewUrl">
     <img class="image-preview" :src="imagePreviewUrl" />
   </div>
+
   <div>{{ errorMessage }}</div>
+
   <div v-for="post in posts" :key="post.id">
     <input
       type="text"
@@ -54,6 +64,7 @@ export default {
       currentUser: null,
       file: null,
       imagePreviewUrl: null,
+      imageUploadProgress: null,
     };
   },
 
@@ -91,6 +102,12 @@ export default {
             headers: {
               Authorization: `Bearer ${this.token}`,
             },
+            onUploadProgress: event => {
+              console.log(event);
+
+              const { loaded, total } = event;
+              this.imageUploadProgress = Math.round((loaded * 100) / total);
+            },
           },
         );
 
@@ -98,6 +115,7 @@ export default {
         this.file = null;
         this.imagePreviewUrl = null;
         this.$refs.file.value = '';
+        this.imageUploadProgress = null;
 
         console.log('createFile', response.data);
       } catch (error) {
