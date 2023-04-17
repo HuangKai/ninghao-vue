@@ -26,7 +26,13 @@
     accept="image/png, image/jpeg, image/jpg"
   />
 
-  <div class="drag-zone" @dragover.prevent @drop.prevent="onDropDragZone">
+  <div
+    :class="['drag-zone', { active: dragZoneActive }]"
+    @dragover.prevent
+    @drop.prevent="onDropDragZone"
+    @dragenter="dragZoneActive = true"
+    @dragleave="dragZoneActive = false"
+  >
     <div>把图像文件拖放到这里</div>
   </div>
 
@@ -69,6 +75,7 @@ export default {
       file: null,
       imagePreviewUrl: null,
       imageUploadProgress: null,
+      dragZoneActive: false,
     };
   },
 
@@ -91,6 +98,9 @@ export default {
   methods: {
     onDropDragZone(event) {
       console.log(event.dataTransfer.files);
+
+      // 鼠标在拖动区域松开后也要恢复默认样式
+      this.dragZoneActive = false;
 
       const file = event.dataTransfer.files[0];
 

@@ -31,3 +31,9 @@ label {
   align-items: center;
   justify-content: center;
 }
+
+/* 复合选择器，中间没有空格，只有当同时具有下面这两个 class 才生效 */
+.drag-zone.active {
+  background: #83c7f7;
+  color: #1790e9;
+}
