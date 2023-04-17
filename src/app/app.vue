@@ -26,6 +26,10 @@
     accept="image/png, image/jpeg, image/jpg"
   />
 
+  <div class="drag-zone" @dragover.prevent @drop.prevent="onDropDragZone">
+    <div>把图像文件拖放到这里</div>
+  </div>
+
   <div v-if="imageUploadProgress">
     <span class="image-upload-progress">{{ imageUploadProgress + '%' }}</span>
   </div>
@@ -85,6 +89,22 @@ export default {
   },
 
   methods: {
+    onDropDragZone(event) {
+      console.log(event.dataTransfer.files);
+
+      const file = event.dataTransfer.files[0];
+
+      if (file) {
+        this.file = file;
+
+        // 设置内容标题
+        this.title = file.name.split('.')[0];
+
+        // 生成预览图
+        this.createImagePreview(file);
+      }
+    },
+
     // 创建文件对象
     async createFile(file, postId) {
       // 创建表单
