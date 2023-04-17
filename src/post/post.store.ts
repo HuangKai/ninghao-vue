@@ -1,7 +1,16 @@
-import { postCreateStoreModule } from './create/post-create.store';
+import { Module } from 'vuex';
+import {
+  PostCreateStoreState,
+  postCreateStoreModule,
+} from './create/post-create.store';
+import { RootState } from '@/app/app.store';
 
-export const postStoreModule = {
-  namespace: true,
+export interface PostStoreState {
+  create: PostCreateStoreState;
+}
+
+export const postStoreModule: Module<PostStoreState, RootState> = {
+  namespaced: true,
 
   modules: {
     create: postCreateStoreModule,
