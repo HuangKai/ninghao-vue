@@ -5,6 +5,7 @@ import {
 } from './create/post-create.store';
 import { RootState } from '@/app/app.store';
 import { postIndexStoreModule } from './index/post-index.store';
+import { postShowStoreModule } from './show/post-show';
 
 export interface PostItem {
   id: string;
@@ -22,5 +23,6 @@ export const postStoreModule: Module<PostStoreState, RootState> = {
   modules: {
     create: postCreateStoreModule,
     index: postIndexStoreModule,
+    show: postShowStoreModule,
   },
 };
