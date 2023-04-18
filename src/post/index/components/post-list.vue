@@ -12,15 +12,7 @@ import { defineComponent } from 'vue';
 import { mapGetters, mapActions } from 'vuex';
 import PostListItem from './post-list-item.vue';
 export default defineComponent({
-  // data() {
-  //   return {
-  //     posts: [],
-  //   };
-  // },
-
   async created() {
-    // const response = await apiHttpClient.get('/posts');
-    // this.posts = response.data;
     this.getPosts();
   },
 
