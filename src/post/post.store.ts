@@ -1,9 +1,9 @@
 import { Module } from 'vuex';
+import { RootState } from '@/app/app.store';
 import {
   PostCreateStoreState,
   postCreateStoreModule,
 } from './create/post-create.store';
-import { RootState } from '@/app/app.store';
 import { postIndexStoreModule } from './index/post-index.store';
 import { postShowStoreModule } from './show/post-show';
 

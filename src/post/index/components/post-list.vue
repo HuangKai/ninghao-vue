@@ -11,6 +11,7 @@
 import { defineComponent } from 'vue';
 import { mapGetters, mapActions } from 'vuex';
 import PostListItem from './post-list-item.vue';
+
 export default defineComponent({
   async created() {
     this.getPosts();
@@ -27,11 +28,6 @@ export default defineComponent({
     ...mapActions({
       getPosts: 'post/index/getPosts',
     }),
-  },
-
-  mounted() {
-    // 获取全部命名空间的路径
-    console.log('Namespaced module paths:', this.$store._modulesNamespaceMap);
   },
 
   components: {
