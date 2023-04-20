@@ -13,11 +13,5 @@ export default defineComponent({
   props: {
     item: Object,
   },
-  mounted() {
-    console.log('link to: ', {
-      name: 'postShow',
-      params: { postId: this.item.id },
-    });
-  },
 });
 </script>
