@@ -12,12 +12,21 @@ import { mapGetters, mapActions } from 'vuex';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
+  title() {
+    if (this.showPost) {
+      return this.post.title;
+    }
+  },
+
   props: {
     postId: String,
   },
 
   created() {
     this.getPostById(this.postId);
+    console.log('post', this.post);
+    console.log('postId', this.postId);
+    console.log('getPostById', this.getPostById(this.postId));
   },
 
   computed: {

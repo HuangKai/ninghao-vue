@@ -8,6 +8,7 @@ import { APP_NAME } from './app/app.config';
 export const setTitle = (vm: any) => {
   // 获取组件里的 title 选项
   const { title } = vm.$options;
+  // console.log(title);
 
   if (title) {
     let titleContent;
@@ -35,7 +36,7 @@ export const titleMixin = {
     setTitle(this);
   },
 
-  update() {
+  updated() {
     setTitle(this);
   },
 } as ComponentOptionsMixin;
